@@ -1,4 +1,4 @@
-# SubTrack: Privacy-First Subscription Manager 🛡️📱
+# SubTrack: Privacy-First Subscription Manager 
 
 **SubTrack** is a high-performance, local-first Android application built with Kotlin and Jetpack Compose. It empowers users to track their recurring subscriptions and expenses without compromising their privacy. No cloud, no tracking—just pure local management.
 
