@@ -21,4 +21,5 @@ dependencyResolutionManagement {
 
 rootProject.name = "SubTrack"
 include(":app")
- 
+include(":data")
+include(":domain")
