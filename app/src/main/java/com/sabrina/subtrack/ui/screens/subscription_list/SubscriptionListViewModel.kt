@@ -24,7 +24,7 @@ class SubscriptionListViewModel @Inject constructor(
     val state: StateFlow<SubscriptionListState> = _state.asStateFlow()
 
     init {
-
+        loadSubscriptions()
     }
 
     private fun loadSubscriptions(){
