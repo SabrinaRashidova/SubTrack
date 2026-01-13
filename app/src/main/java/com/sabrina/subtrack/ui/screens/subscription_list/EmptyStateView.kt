@@ -26,7 +26,7 @@ import androidx.compose.ui.unit.dp
 import com.sabrina.subtrack.R
 
 @Composable
-fun EmptyStateView(){
+fun EmptyStateView(onAddComponentClick: () -> Unit){
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -62,7 +62,7 @@ fun EmptyStateView(){
         Spacer(modifier = Modifier.height(32.dp))
 
         Button(
-            onClick = {  },
+            onClick = onAddComponentClick,
             shape = RoundedCornerShape(12.dp)
         ) {
             Icon(Icons.Default.Add, contentDescription = null)

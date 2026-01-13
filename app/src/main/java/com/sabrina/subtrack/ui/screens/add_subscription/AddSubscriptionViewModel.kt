@@ -35,7 +35,7 @@ class AddSubscriptionViewModel @Inject constructor(
                     notes = ""
                 )
             )
-            onSuccess
+            onSuccess()
         }
     }
 }

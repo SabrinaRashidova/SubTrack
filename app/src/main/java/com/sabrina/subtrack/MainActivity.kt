@@ -24,7 +24,7 @@ class MainActivity : ComponentActivity() {
                NavHost(navController = navController, startDestination = "list"){
                    composable(Routes.LIST) {
                        SubscriptionListScreen(onNavigateToAdd = {
-                           navController.navigate("add")
+                           navController.navigate(Routes.ADD)
                        })
                    }
                    composable(Routes.ADD) {

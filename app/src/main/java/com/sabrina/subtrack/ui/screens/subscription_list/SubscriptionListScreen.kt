@@ -52,7 +52,9 @@ fun SubscriptionListScreen(
             TotalSpendingCard(total = state.totalMonthlyCost)
 
             if (state.subscriptions.isEmpty()){
-                EmptyStateView()
+                EmptyStateView(
+                    onAddComponentClick = onNavigateToAdd
+                )
             }else{
                 LazyColumn {
                     items(state.subscriptions){sub->

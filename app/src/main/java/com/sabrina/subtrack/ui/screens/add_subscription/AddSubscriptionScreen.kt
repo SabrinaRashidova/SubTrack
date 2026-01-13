@@ -60,6 +60,7 @@ fun AddSubscriptionScreen(
                 value = viewmodel.cost,
                 onValueChange = { viewmodel.cost = it},
                 label = { Text("Monthly Cost")},
+                prefix = { Text("$") },
                 modifier = Modifier.fillMaxWidth(),
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal)
             )
