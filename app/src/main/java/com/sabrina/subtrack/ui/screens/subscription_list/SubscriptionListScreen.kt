@@ -24,7 +24,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SubscriptionListScreen(
-    viewModel: SubscriptionListViewModel = hiltViewModel()
+    viewModel: SubscriptionListViewModel = hiltViewModel(),
+    onNavigateToAdd: () -> Unit
 ){
     val state by viewModel.state.collectAsState()
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
@@ -39,7 +40,7 @@ fun SubscriptionListScreen(
         },
         floatingActionButton = {
             FloatingActionButton(
-                onClick = {  },
+                onClick = onNavigateToAdd,
                 containerColor = MaterialTheme.colorScheme.primaryContainer,
                 contentColor = MaterialTheme.colorScheme.onPrimaryContainer
             ) {
