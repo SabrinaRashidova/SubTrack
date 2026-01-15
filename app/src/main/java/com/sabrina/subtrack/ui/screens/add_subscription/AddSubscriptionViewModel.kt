@@ -1,19 +1,26 @@
 package com.sabrina.subtrack.ui.screens.add_subscription
 
+import android.content.Context
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.WorkManager
 import com.sabrina.domain.model.SubscriptionModel
 import com.sabrina.domain.repository.SubscriptionRepository
+import com.sabrina.subtrack.utils.ReminderWorker
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.launch
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 @HiltViewModel
 class AddSubscriptionViewModel @Inject constructor(
-    private val repository: SubscriptionRepository
+    private val repository: SubscriptionRepository,
+    @ApplicationContext private val context: Context
 ) : ViewModel(){
 
     var name by mutableStateOf("")
@@ -35,7 +42,20 @@ class AddSubscriptionViewModel @Inject constructor(
                     notes = ""
                 )
             )
+            scheduleReminderWorker()
+
             onSuccess()
         }
     }
+
+    private fun scheduleReminderWorker() {
+        val workRequest = OneTimeWorkRequestBuilder<ReminderWorker>()
+            .setInitialDelay(5, TimeUnit.SECONDS)
+            .build()
+
+        WorkManager
+            .getInstance(context)
+            .enqueue(workRequest)
+    }
+
 }

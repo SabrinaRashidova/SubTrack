@@ -31,7 +31,6 @@ class ReminderWorker @AssistedInject constructor(
         val twentyFourHoursFromNow = currentTime + (24 * 60 * 60 * 1000)
 
         val upcoming = subscriptions.filter { it.billingDate in currentTime..twentyFourHoursFromNow }
-
         upcoming.forEach { sub ->
             showNotification(sub)
         }
