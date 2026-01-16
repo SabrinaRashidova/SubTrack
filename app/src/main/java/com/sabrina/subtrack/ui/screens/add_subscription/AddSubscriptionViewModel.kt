@@ -2,6 +2,7 @@ package com.sabrina.subtrack.ui.screens.add_subscription
 
 import android.content.Context
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
@@ -27,6 +28,8 @@ class AddSubscriptionViewModel @Inject constructor(
     var cost by mutableStateOf("")
     var category by mutableStateOf("Entertainment")
 
+    var billingDate by mutableLongStateOf(System.currentTimeMillis())
+
     fun saveSubscription(onSuccess: () -> Unit){
         val costDouble = cost.toDoubleOrNull() ?: 0.0
         if (name.isBlank() || costDouble <= 0.0) return
@@ -37,7 +40,7 @@ class AddSubscriptionViewModel @Inject constructor(
                     id = 0,
                     name = name,
                     monthlyCost = costDouble,
-                    billingDate = System.currentTimeMillis(),
+                    billingDate = billingDate,
                     category = category,
                     notes = ""
                 )
