@@ -36,6 +36,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.sabrina.subtrack.utils.formatLongToDate
 import java.time.Instant
 import java.time.ZoneId
 
@@ -47,7 +48,9 @@ fun AddSubscriptionScreen(
     viewmodel: AddSubscriptionViewModel = hiltViewModel()
 ) {
 
-    val datePickerState = rememberDatePickerState()
+    val datePickerState = rememberDatePickerState(
+        initialSelectedDateMillis = System.currentTimeMillis()
+    )
     var showDatePicker by remember { mutableStateOf(false) }
 
     if (showDatePicker){
@@ -104,15 +107,18 @@ fun AddSubscriptionScreen(
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal)
             )
 
-            OutlinedButton(
-                onClick = { showDatePicker = true},
+            OutlinedTextField(
+                value = formatLongToDate(viewmodel.billingDate),
+                onValueChange = { },
+                label = { Text("Billing Date") },
+                readOnly = true,
                 modifier = Modifier.fillMaxWidth(),
-                shape = RoundedCornerShape(12.dp)
-            ) {
-                Icon(Icons.Default.CalendarToday, contentDescription = null)
-                Spacer(modifier = Modifier.width(8.dp))
-                Text("Billing Date: ${Instant.ofEpochMilli(viewmodel.billingDate).atZone(ZoneId.systemDefault()).toLocalDate()}")
-            }
+                trailingIcon = {
+                    IconButton(onClick = { showDatePicker = true }) {
+                        Icon(Icons.Default.CalendarToday, contentDescription = "Select Date")
+                    }
+                }
+            )
 
             Button(
                 onClick = { viewmodel.saveSubscription { onPopBack() }},
