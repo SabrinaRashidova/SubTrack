@@ -20,6 +20,7 @@ import androidx.compose.material3.DatePickerDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
@@ -47,6 +48,10 @@ fun AddSubscriptionScreen(
     onPopBack: () -> Unit,
     viewmodel: AddSubscriptionViewModel = hiltViewModel()
 ) {
+
+    val categories = listOf("Entertainment", "Food", "Utilities", "Health", "Other")
+
+    Text("Select Category", style = MaterialTheme.typography.labelMedium)
 
     val datePickerState = rememberDatePickerState(
         initialSelectedDateMillis = System.currentTimeMillis()

@@ -1,5 +1,8 @@
 package com.sabrina.subtrack.ui.screens.subscription_list
 
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.spring
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -57,8 +60,19 @@ fun SubscriptionListScreen(
                 )
             }else{
                 LazyColumn {
-                    items(state.subscriptions){sub->
+                    items(
+                        items = state.subscriptions,
+                        key = { it.id }
+                    ){sub->
                         SubscriptionItem(
+                            modifier = Modifier.animateItem(
+                                fadeInSpec = tween(300),
+                                fadeOutSpec = tween(300),
+                                placementSpec = spring(
+                                    dampingRatio = Spring.DampingRatioMediumBouncy,
+                                    stiffness = Spring.StiffnessLow
+                                )
+                            ),
                             subscription = sub,
                             onDelete = { viewModel.deleteSubscription(sub)}
                         )

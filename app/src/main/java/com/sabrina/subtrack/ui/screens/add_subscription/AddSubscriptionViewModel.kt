@@ -28,6 +28,10 @@ class AddSubscriptionViewModel @Inject constructor(
     var cost by mutableStateOf("")
     var category by mutableStateOf("Entertainment")
 
+    fun onCategoryChange(newCategory: String) {
+        category = newCategory
+    }
+
     var billingDate by mutableLongStateOf(System.currentTimeMillis())
 
     fun saveSubscription(onSuccess: () -> Unit){

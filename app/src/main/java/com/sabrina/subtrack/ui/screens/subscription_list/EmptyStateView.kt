@@ -17,16 +17,32 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.airbnb.lottie.compose.LottieAnimation
+import com.airbnb.lottie.compose.LottieCompositionSpec
+import com.airbnb.lottie.compose.LottieConstants
+import com.airbnb.lottie.compose.animateLottieCompositionAsState
+import com.airbnb.lottie.compose.rememberLottieComposition
 import com.sabrina.subtrack.R
 
 @Composable
 fun EmptyStateView(onAddComponentClick: () -> Unit){
+
+    val composition by rememberLottieComposition(
+        LottieCompositionSpec.RawRes(R.raw.empty_lottie)
+    )
+
+    val progress by animateLottieCompositionAsState(
+        composition = composition,
+        iterations = LottieConstants.IterateForever
+    )
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -34,40 +50,24 @@ fun EmptyStateView(onAddComponentClick: () -> Unit){
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        Icon(
-           imageVector = Icons.Outlined.ReceiptLong,
-            contentDescription = null,
-            modifier = Modifier.size(100.dp),
-            tint = MaterialTheme.colorScheme.primary.copy(alpha = 0.3f)
-        )
 
-        Spacer(modifier = Modifier.height(24.dp))
-
-        Text(
-            text = "No subscriptions yet",
-            style = MaterialTheme.typography.headlineSmall,
-            fontWeight = FontWeight.Bold,
-            color = MaterialTheme.colorScheme.onSurface
+        LottieAnimation(
+            composition = composition,
+            progress = { progress },
+            modifier = Modifier.size(280.dp)
         )
 
         Spacer(modifier = Modifier.height(8.dp))
 
         Text(
-            text = "Add your first subscription to start tracking your monthly spending.",
-            style = MaterialTheme.typography.bodyMedium,
-            textAlign = TextAlign.Center,
-            color = MaterialTheme.colorScheme.onSurfaceVariant
+            text = "No subscriptions yet!",
+            style = MaterialTheme.typography.titleLarge
         )
 
-        Spacer(modifier = Modifier.height(32.dp))
+        Spacer(modifier = Modifier.height(8.dp))
 
-        Button(
-            onClick = onAddComponentClick,
-            shape = RoundedCornerShape(12.dp)
-        ) {
-            Icon(Icons.Default.Add, contentDescription = null)
-            Spacer(modifier = Modifier.width(8.dp))
-            Text("Add Subscription")
+        Button(onClick = onAddComponentClick) {
+            Text("Add Your First Sub")
         }
     }
 }

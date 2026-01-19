@@ -78,4 +78,6 @@ dependencies {
     implementation("androidx.work:work-runtime-ktx:$workVersion")
     implementation("androidx.hilt:hilt-work:1.2.0")
     kapt("androidx.hilt:hilt-compiler:1.2.0")
+
+    implementation("com.airbnb.android:lottie-compose:6.3.0")
 }
