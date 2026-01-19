@@ -15,6 +15,8 @@ import com.sabrina.subtrack.R
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 import kotlinx.coroutines.flow.first
+import java.time.Instant
+import java.time.ZoneId
 
 @HiltWorker
 class ReminderWorker @AssistedInject constructor(
@@ -26,13 +28,22 @@ class ReminderWorker @AssistedInject constructor(
     @RequiresApi(Build.VERSION_CODES.O)
     override suspend fun doWork(): Result {
         val subscriptions = repository.getAllSubscriptions().first()
-
         val currentTime = System.currentTimeMillis()
         val twentyFourHoursFromNow = currentTime + (24 * 60 * 60 * 1000)
 
         val upcoming = subscriptions.filter { it.billingDate in currentTime..twentyFourHoursFromNow }
         upcoming.forEach { sub ->
             showNotification(sub)
+
+            val nextDate = Instant.ofEpochMilli(sub.billingDate)
+                .atZone(ZoneId.systemDefault())
+                .toLocalDate()
+                .plusMonths(1)
+                .atStartOfDay(ZoneId.systemDefault())
+                .toInstant()
+                .toEpochMilli()
+
+            repository.insertSubscription(sub.copy(billingDate = nextDate))
         }
 
         return Result.success()
