@@ -27,6 +27,7 @@ class AddSubscriptionViewModel @Inject constructor(
     var name by mutableStateOf("")
     var cost by mutableStateOf("")
     var category by mutableStateOf("Entertainment")
+        private set
 
     fun onCategoryChange(newCategory: String) {
         category = newCategory

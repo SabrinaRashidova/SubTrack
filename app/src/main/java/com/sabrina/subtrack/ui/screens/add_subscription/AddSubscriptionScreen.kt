@@ -2,13 +2,16 @@ package com.sabrina.subtrack.ui.screens.add_subscription
 
 import android.os.Build
 import androidx.annotation.RequiresApi
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
@@ -18,6 +21,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.DatePicker
 import androidx.compose.material3.DatePickerDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FilterChip
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -50,8 +54,6 @@ fun AddSubscriptionScreen(
 ) {
 
     val categories = listOf("Entertainment", "Food", "Utilities", "Health", "Other")
-
-    Text("Select Category", style = MaterialTheme.typography.labelMedium)
 
     val datePickerState = rememberDatePickerState(
         initialSelectedDateMillis = System.currentTimeMillis()
@@ -103,6 +105,23 @@ fun AddSubscriptionScreen(
                 modifier = Modifier.fillMaxWidth()
             )
 
+            Text("Category", style = MaterialTheme.typography.titleSmall)
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .horizontalScroll(rememberScrollState()),
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                categories.forEach { categoryName->
+                    FilterChip(
+                        selected = viewmodel.category == categoryName,
+                        onClick = { viewmodel.onCategoryChange(categoryName) },
+                        label = { Text(categoryName) },
+                        shape = RoundedCornerShape(12.dp)
+                    )
+                }
+            }
+
             OutlinedTextField(
                 value = viewmodel.cost,
                 onValueChange = { viewmodel.cost = it},
@@ -124,6 +143,8 @@ fun AddSubscriptionScreen(
                     }
                 }
             )
+
+            Spacer(modifier = Modifier.weight(1f))
 
             Button(
                 onClick = { viewmodel.saveSubscription { onPopBack() }},
