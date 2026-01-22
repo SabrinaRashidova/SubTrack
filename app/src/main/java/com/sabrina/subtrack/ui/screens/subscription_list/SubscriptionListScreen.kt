@@ -65,7 +65,10 @@ fun SubscriptionListScreen(
         }
     ) {paddingValues ->
         Column(modifier = Modifier.padding(paddingValues)) {
-            TotalSpendingCard(total = state.totalMonthlyCost)
+            TotalSpendingCard(
+                subscriptions = state.subscriptions,
+                total = state.totalMonthlyCost
+            )
 
             if (state.subscriptions.isEmpty()){
                 EmptyStateView(
@@ -131,3 +134,13 @@ fun SubscriptionListScreen(
         }
     }
 }
+
+
+
+
+
+
+
+
+
+
