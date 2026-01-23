@@ -22,6 +22,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.sabrina.domain.model.SubscriptionModel
+import com.sabrina.subtrack.ui.screens.AnimatedTotal
 import com.sabrina.subtrack.ui.screens.SpendingPieChart
 
 @Composable
@@ -50,19 +51,22 @@ fun TotalSpendingCard(subscriptions: List<SubscriptionModel>, total: Double){
                     style = MaterialTheme.typography.labelLarge,
                     color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f)
                 )
-                AnimatedContent(
-                    targetState = total,
-                    transitionSpec = {
-                        fadeIn(animationSpec = tween(500)) togetherWith fadeOut(animationSpec = tween(500))
-                    },label = "priceAnimation"
-                ) {targetGoal->
-                    Text(
-                        text = "$${String.format("%.2f", targetGoal)}",
-                        style = MaterialTheme.typography.displayMedium,
-                        fontWeight = FontWeight.ExtraBold,
-                        color = MaterialTheme.colorScheme.onSurface
-                    )
-                }
+
+                AnimatedTotal(total = total)
+
+//                AnimatedContent(
+//                    targetState = total,
+//                    transitionSpec = {
+//                        fadeIn(animationSpec = tween(500)) togetherWith fadeOut(animationSpec = tween(500))
+//                    },label = "priceAnimation"
+//                ) {targetGoal->
+//                    Text(
+//                        text = "$${String.format("%.2f", targetGoal)}",
+//                        style = MaterialTheme.typography.displayMedium,
+//                        fontWeight = FontWeight.ExtraBold,
+//                        color = MaterialTheme.colorScheme.onSurface
+//                    )
+//                }
             }
         }
     }

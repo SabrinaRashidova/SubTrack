@@ -2,16 +2,21 @@ package com.sabrina.subtrack.ui.screens
 
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.FastOutSlowInEasing
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.unit.dp
 import com.sabrina.domain.model.SubscriptionModel
 
@@ -33,7 +38,13 @@ fun SpendingPieChart(
         )
     }
 
-    Canvas(modifier = modifier.size(100.dp)) {
+    val rotation by animateFloatAsState(
+        targetValue = totalSpend.toFloat(),
+        animationSpec = spring(stiffness = Spring.StiffnessLow),
+        label = "chartRotation"
+    )
+
+    Canvas(modifier = modifier.size(100.dp).graphicsLayer(rotationZ = rotation)) {
         var startAngle = -90f
 
         categoryTotals.forEach { (category,amount) ->
