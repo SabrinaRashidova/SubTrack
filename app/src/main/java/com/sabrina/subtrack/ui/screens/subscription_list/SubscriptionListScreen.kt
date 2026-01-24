@@ -15,9 +15,13 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.rounded.DarkMode
+import androidx.compose.material.icons.rounded.LightMode
+import androidx.compose.material.icons.rounded.SettingsBrightness
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.LargeTopAppBar
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -36,12 +40,15 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.sabrina.subtrack.ui.screens.AppTheme
+import com.sabrina.subtrack.ui.screens.ThemeViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SubscriptionListScreen(
     viewModel: SubscriptionListViewModel = hiltViewModel(),
-    onNavigateToAdd: () -> Unit
+    onNavigateToAdd: () -> Unit,
+    themeViewModel: ThemeViewModel
 ){
     val state by viewModel.state.collectAsState()
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
@@ -51,6 +58,23 @@ fun SubscriptionListScreen(
         topBar = {
             LargeTopAppBar(
                 title = { Text("My Subscriptions") },
+                actions = {
+                    IconButton(onClick = {
+                        val nextTheme = if (themeViewModel.currentTheme == AppTheme.LIGHT) {
+                            AppTheme.DARK
+                        } else {
+                            AppTheme.LIGHT
+                        }
+                        themeViewModel.setTheme(nextTheme)
+                    }) {
+                        val icon = if (themeViewModel.currentTheme == AppTheme.DARK) {
+                            Icons.Rounded.LightMode
+                        } else {
+                            Icons.Rounded.DarkMode
+                        }
+                        Icon(icon, contentDescription = "Switch Theme")
+                    }
+                },
                 scrollBehavior = scrollBehavior
             )
         },
@@ -105,13 +129,9 @@ fun SubscriptionListScreen(
                                     .padding(horizontal = 16.dp, vertical = 8.dp)
                                     .clip(RoundedCornerShape(24.dp))
                                     .background(color),
-                                    contentAlignment = Alignment.CenterEnd){
-                                    Icon(
-                                        imageVector = Icons.Default.Delete,
-                                        contentDescription = "Delete",
-                                        modifier = Modifier.padding(end = 24.dp),
-                                        tint = MaterialTheme.colorScheme.onErrorContainer
-                                    )
+                                    contentAlignment = Alignment.CenterEnd
+                                ) {
+                                    Icon(Icons.Default.Delete, contentDescription = "Delete", modifier = Modifier.padding(end = 24.dp))
                                 }
                             }
                         ) {
@@ -125,7 +145,6 @@ fun SubscriptionListScreen(
                                     )
                                 ),
                                 subscription = sub,
-                                onDelete = { viewModel.deleteSubscription(sub)}
                             )
                         }
                     }

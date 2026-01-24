@@ -1,10 +1,6 @@
 package com.sabrina.subtrack.ui.screens.subscription_list
 
-import androidx.compose.animation.AnimatedContent
-import androidx.compose.animation.core.tween
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
-import androidx.compose.animation.togetherWith
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -19,7 +15,6 @@ import androidx.compose.material3.surfaceColorAtElevation
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.sabrina.domain.model.SubscriptionModel
 import com.sabrina.subtrack.ui.screens.AnimatedTotal
@@ -32,6 +27,7 @@ fun TotalSpendingCard(subscriptions: List<SubscriptionModel>, total: Double){
             .fillMaxWidth()
             .padding(16.dp),
         shape = RoundedCornerShape(28.dp),
+        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.3f)),
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surfaceColorAtElevation(2.dp)
         )
