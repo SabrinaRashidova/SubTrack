@@ -1,4 +1,4 @@
-📱 SubTrack
+📱 SubTrack -> This app helps users track their monthly subscriptions (Netflix, Spotify, Gym) and daily expenses. It calculates when the next payment is due and shows a breakdown of spending.
 
 Features
 
