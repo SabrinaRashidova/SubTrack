@@ -80,4 +80,6 @@ dependencies {
     kapt("androidx.hilt:hilt-compiler:1.2.0")
 
     implementation("com.airbnb.android:lottie-compose:6.3.0")
+
+    implementation("androidx.datastore:datastore-preferences:1.1.1")
 }

@@ -1,0 +1,21 @@
+package com.sabrina.subtrack.di
+
+import android.content.Context
+import com.sabrina.subtrack.ui.ThemeSession
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
+import dagger.hilt.components.SingletonComponent
+import javax.inject.Singleton
+
+@Module
+@InstallIn(SingletonComponent::class)
+object AppModule {
+
+    @Provides
+    @Singleton
+    fun provideThemeSession(@ApplicationContext context: Context) : ThemeSession{
+        return ThemeSession(context)
+    }
+}

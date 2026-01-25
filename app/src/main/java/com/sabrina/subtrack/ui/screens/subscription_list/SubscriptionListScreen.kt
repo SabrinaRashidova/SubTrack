@@ -7,7 +7,9 @@ import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -28,6 +30,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SwipeToDismissBox
 import androidx.compose.material3.SwipeToDismissBoxValue
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberSwipeToDismissBoxState
 import androidx.compose.runtime.Composable
@@ -38,6 +41,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.sabrina.subtrack.ui.screens.AppTheme
@@ -53,29 +57,36 @@ fun SubscriptionListScreen(
     val state by viewModel.state.collectAsState()
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
 
+    val currentTheme by themeViewModel.currentTheme.collectAsState()
+
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
-            LargeTopAppBar(
-                title = { Text("My Subscriptions") },
+            TopAppBar(
+                title = {
+                    Column(modifier = Modifier.padding(top = 32.dp)){
+                        Text(
+                            "My Subscriptions",
+                            style = MaterialTheme.typography.headlineMedium,
+                            color = MaterialTheme.colorScheme.onSurface
+                        )
+                    }
+                    },
                 actions = {
-                    IconButton(onClick = {
-                        val nextTheme = if (themeViewModel.currentTheme == AppTheme.LIGHT) {
-                            AppTheme.DARK
-                        } else {
-                            AppTheme.LIGHT
+                    Box(modifier = Modifier.padding(top = 32.dp)) {
+                        IconButton(onClick = {
+                            val nextTheme = if (currentTheme == AppTheme.LIGHT) AppTheme.DARK else AppTheme.LIGHT
+                            themeViewModel.setTheme(nextTheme)
+                        }) {
+                            val icon = if (currentTheme == AppTheme.DARK) Icons.Rounded.LightMode else Icons.Rounded.DarkMode
+                            Icon(icon, contentDescription = "Switch Theme")
                         }
-                        themeViewModel.setTheme(nextTheme)
-                    }) {
-                        val icon = if (themeViewModel.currentTheme == AppTheme.DARK) {
-                            Icons.Rounded.LightMode
-                        } else {
-                            Icons.Rounded.DarkMode
-                        }
-                        Icon(icon, contentDescription = "Switch Theme")
                     }
                 },
-                scrollBehavior = scrollBehavior
+                scrollBehavior = scrollBehavior,
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = Color.Transparent
+                )
             )
         },
         floatingActionButton = {
@@ -88,7 +99,7 @@ fun SubscriptionListScreen(
             }
         }
     ) {paddingValues ->
-        Column(modifier = Modifier.padding(paddingValues)) {
+        Column(modifier = Modifier.padding(paddingValues).padding(top = 22.dp)) {
             TotalSpendingCard(
                 subscriptions = state.subscriptions,
                 total = state.totalMonthlyCost
