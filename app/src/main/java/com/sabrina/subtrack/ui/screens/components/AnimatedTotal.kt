@@ -1,4 +1,4 @@
-package com.sabrina.subtrack.ui.screens
+package com.sabrina.subtrack.ui.screens.components
 
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.SizeTransform

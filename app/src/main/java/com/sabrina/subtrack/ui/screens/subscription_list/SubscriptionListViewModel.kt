@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sabrina.domain.model.SubscriptionModel
 import com.sabrina.domain.repository.SubscriptionRepository
-import com.sabrina.subtrack.ui.screens.SubscriptionListState
+import com.sabrina.subtrack.ui.screens.subscription_list.SubscriptionListState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

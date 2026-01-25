@@ -44,8 +44,8 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.sabrina.subtrack.ui.screens.AppTheme
-import com.sabrina.subtrack.ui.screens.ThemeViewModel
+import com.sabrina.subtrack.ui.theme.AppTheme
+import com.sabrina.subtrack.ui.theme.ThemeViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

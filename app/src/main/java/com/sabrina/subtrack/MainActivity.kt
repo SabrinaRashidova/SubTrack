@@ -13,8 +13,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.sabrina.subtrack.ui.screens.Routes
-import com.sabrina.subtrack.ui.screens.ThemeViewModel
+import com.sabrina.subtrack.ui.navigation.Routes
+import com.sabrina.subtrack.ui.theme.ThemeViewModel
 import com.sabrina.subtrack.ui.screens.add_subscription.AddSubscriptionScreen
 import com.sabrina.subtrack.ui.screens.subscription_list.SubscriptionListScreen
 import com.sabrina.subtrack.ui.theme.SubTrackTheme

@@ -1,7 +1,7 @@
 package com.sabrina.subtrack.di
 
 import android.content.Context
-import com.sabrina.subtrack.ui.ThemeSession
+import com.sabrina.subtrack.ui.theme.ThemeSession
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

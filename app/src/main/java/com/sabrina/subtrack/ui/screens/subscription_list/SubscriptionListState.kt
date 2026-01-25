@@ -1,4 +1,4 @@
-package com.sabrina.subtrack.ui.screens
+package com.sabrina.subtrack.ui.screens.subscription_list
 
 import com.sabrina.domain.model.SubscriptionModel
 

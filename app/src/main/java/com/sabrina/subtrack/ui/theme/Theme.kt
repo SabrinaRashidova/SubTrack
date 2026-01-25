@@ -14,8 +14,8 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.sabrina.subtrack.ui.screens.AppTheme
-import com.sabrina.subtrack.ui.screens.ThemeViewModel
+import com.sabrina.subtrack.ui.theme.AppTheme
+import com.sabrina.subtrack.ui.theme.ThemeViewModel
 
 private val DarkColorScheme = darkColorScheme(
     primary = Purple80,
